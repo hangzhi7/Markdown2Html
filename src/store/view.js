@@ -9,6 +9,10 @@ class View {
 
   @observable isImmersiveEditing = false;
 
+  @observable isFootnotesVisible = true;
+
+  @observable isFigcaptionVisible = true;
+
   @action
   setEditAreaOpen = (isEditAreaOpen) => {
     this.isEditAreaOpen = isEditAreaOpen;
@@ -27,6 +31,16 @@ class View {
   @action
   setImmersiveEditing = (isImmersiveEditing) => {
     this.isImmersiveEditing = isImmersiveEditing;
+  };
+
+  @action
+  setFootnotesVisible = (isFootnotesVisible) => {
+    this.isFootnotesVisible = isFootnotesVisible;
+  };
+
+  @action
+  setFigcaptionVisible = (isFigcaptionVisible) => {
+    this.isFigcaptionVisible = isFigcaptionVisible;
   };
 }
 
