@@ -18,7 +18,7 @@ jobs:
 
       - name: Build with Docker Image
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app hangzhi7/markdown2html:v1 -c "ln -s /md2html/node_modules /app && yarn run build"
+          docker run --rm -v ${{ github.workspace }}:/app -w /app shenweiyan/markdown2html:v1 -c "ln -s /md2html/node_modules /app && yarn run build"
 
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3
