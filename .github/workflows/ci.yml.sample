@@ -1,4 +1,4 @@
-name: BuildAndDeploy
+name: build and deploy
 on:
   push:
     branches:
@@ -7,25 +7,18 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider
+      GENERATE_SOURCEMAP: 'false'
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install -g yarn
-      - run: node --version
-      - run: npm --version 
-
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Build with Docker Image
         run: |
-          yarn upgrade
-          yarn install
-          yarn run build
+          docker run --rm -v ${{ github.workspace }}:/app -w /app shenweiyan/markdown2html:v1 -c "ln -s /md2html/node_modules /app && yarn run build"
 
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3
